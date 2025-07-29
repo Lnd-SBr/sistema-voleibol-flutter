@@ -1,0 +1,47 @@
+name: flutter_create_coach_5x1
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_tts: ^3.8.4 # ou versão mais recente
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.3.5
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/geral/
+    - assets/levantador/
+    - assets/ponteiro1/
+    - assets/ponteiro2/
+    - assets/central1/
+    - assets/central2/
+    - assets/oposto/
+    - assets/quadra/
+    - assets/libero/
+    - assets/6x0/
+
+# 👇 ESTA PARTE FICA FORA DA SEÇÃO "flutter:"
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/geral/Logo_Redondo_Sem_Misto.png
+  android: true
+  ios: true
+  fullscreen: true
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/geral/Logo_Redondo_Sem_Misto.png"
