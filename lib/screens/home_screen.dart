@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
     '5x1',
     '6x0',
     '4x2',
-    '4x2 (infiltrando)',
+    '4x2 Invertido',
   ];
 
   double _logoOpacity = 0.0; // 👈 começa invisível
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Voley Systems'),
+        title: Text('Volleyball System'),
         centerTitle: true,
       ),
       body: Center(
@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(top: 10.0), // 👈 ajusta distância do topo
                     child: Image.asset(
                       'assets/geral/Logo_Redondo_Sem_Misto.png',
-                      height: 180,
+                      height: 300,
                     ),
                   ),
                 ),
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // Dropdown de sistemas
                 DropdownButtonFormField<String>(
-                  value: sistemaSelecionado,
+                  initialValue: sistemaSelecionado,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     filled: true,

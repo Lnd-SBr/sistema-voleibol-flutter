@@ -10,14 +10,14 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  flutter_tts: ^3.8.4 # ou versão mais recente
+  flutter_tts: ^4.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-  flutter_native_splash: ^2.3.5
-  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^6.0.0
+  flutter_native_splash: ^2.4.6
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: true
@@ -32,6 +32,9 @@ flutter:
     - assets/quadra/
     - assets/libero/
     - assets/6x0/
+    - assets/4x2/
+    - assets/4x2i/
+    - assets/5x1/
 
 # 👇 ESTA PARTE FICA FORA DA SEÇÃO "flutter:"
 flutter_native_splash:
