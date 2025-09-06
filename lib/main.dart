@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(Coach5x1App());
+  runApp(const Coach5x1App());
 }
 
 class Coach5x1App extends StatelessWidget {
+  const Coach5x1App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,7 +16,7 @@ class Coach5x1App extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system, // 👉 respeita o modo do sistema
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
 
   }

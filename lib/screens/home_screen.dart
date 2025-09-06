@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'sistema_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   String sistemaSelecionado = '5x1';
 
   final List<String> sistemasDisponiveis = [
@@ -22,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     // 👇 Aciona animação após pequeno delay
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       setState(() {
         _logoOpacity = 1.0;
       });
@@ -35,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volleyball System'),
+        title: const Text('Volleyball System'),
         centerTitle: true,
       ),
       body: Center(
@@ -51,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // 🔽 Animação suave do logo
                 AnimatedOpacity(
                   opacity: _logoOpacity,
-                  duration: Duration(milliseconds: 4000),
+                  duration: const Duration(milliseconds: 4000),
                   curve: Curves.easeInOut,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10.0), // 👈 ajusta distância do topo
@@ -65,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 40), // 🔼 Distância entre imagem e texto
 
                 // Frase de orientação
-                Text(
+                const Text(
                   'Escolha o Sistema de Jogo',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -76,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 DropdownButtonFormField<String>(
                   initialValue: sistemaSelecionado,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     filled: true,
                     fillColor: isDark ? Colors.grey[800] : Colors.grey[100],
                   ),
@@ -106,11 +108,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     );
                   },
-                  icon: Icon(Icons.play_arrow),
-                  label: Text('COMEÇAR ESTUDO'),
+                  icon: const Icon(Icons.play_arrow),
+                  label: const Text('COMEÇAR ESTUDO'),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: TextStyle(fontSize: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    textStyle: const TextStyle(fontSize: 16),
                   ),
                 ),
 

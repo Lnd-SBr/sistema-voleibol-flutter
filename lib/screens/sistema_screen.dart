@@ -5,13 +5,13 @@ import 'package:flutter_tts/flutter_tts.dart';
 class SistemaScreen extends StatefulWidget {
   final String sistema;
 
-  const SistemaScreen({required this.sistema});
+  const SistemaScreen({super.key, required this.sistema});
 
   @override
-  _SistemaScreenState createState() => _SistemaScreenState();
+  SistemaScreenState createState() => SistemaScreenState();
 }
 
-class _SistemaScreenState extends State<SistemaScreen> {
+class SistemaScreenState extends State<SistemaScreen> {
   int rotacao = 1;
   final FlutterTts flutterTts = FlutterTts();
 
@@ -40,7 +40,7 @@ class _SistemaScreenState extends State<SistemaScreen> {
 
 
     // Configurações do flutterTts
-    flutterTts.setLanguage("pt-BR");
+    flutterTts.setLanguage('pt-BR');
     flutterTts.setSpeechRate(0.6);
   }
 
@@ -75,7 +75,7 @@ class _SistemaScreenState extends State<SistemaScreen> {
     'PONTEIRO4' ,
   ];
 
-  final List<String> jogadores4x2_i = [
+  final List<String> jogadores4x2I = [
     'LEVANTADOR1',
     'LEVANTADOR2',
     'PONTEIRO1',
@@ -374,7 +374,7 @@ class _SistemaScreenState extends State<SistemaScreen> {
                   : (widget.sistema == '4x2'
                   ? jogadores4x2
                   : (widget.sistema == '4x2 Invertido'
-                  ? jogadores4x2_i
+                  ? jogadores4x2I
                   : jogadores6x0)))
 
 
@@ -391,7 +391,7 @@ class _SistemaScreenState extends State<SistemaScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'O sistema "${widget.sistema}" ainda não está disponível.\nEm breve você poderá explorá-lo!',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
                 textAlign: TextAlign.center,
               ),
             )
@@ -403,7 +403,7 @@ class _SistemaScreenState extends State<SistemaScreen> {
                   children: [
                     Image.asset(imagemAtual, fit: BoxFit.contain),
                     const SizedBox(height: 12),
-                    Text(
+                    const Text(
                       'Referência da Posição na Quadra',
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                     ),
@@ -438,13 +438,13 @@ class _SistemaScreenState extends State<SistemaScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: AnimatedSwitcher(
-                        duration: Duration(milliseconds: 400),
+                        duration: const Duration(milliseconds: 400),
                         transitionBuilder: (Widget child, Animation<double> animation) {
                           return FadeTransition(opacity: animation, child: child);
                         },
                         child: Container(
                           key: ValueKey('$jogadorSelecionado-$rotacao'),
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: Colors.grey.shade800, // Agora com melhor contraste
                             borderRadius: BorderRadius.circular(8),
@@ -453,7 +453,7 @@ class _SistemaScreenState extends State<SistemaScreen> {
 
                           child: Text(
                             explicacoesPorSistema[widget.sistema]?[jogadorSelecionado.toUpperCase()]?[rotacao] ?? '',
-                            style: TextStyle(fontSize: 14),
+                            style: const TextStyle(fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
 
@@ -466,33 +466,33 @@ class _SistemaScreenState extends State<SistemaScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.volume_up, color: Colors.white),
+                            icon: const Icon(Icons.volume_up, color: Colors.white),
                             onPressed: narrarTextoExplicativo,
                             tooltip: 'Ouvir explicação',
                           ),
                           IconButton(
-                            icon: Icon(Icons.play_circle_fill, color: Colors.white),
+                            icon: const Icon(Icons.play_circle_fill, color: Colors.white),
                             onPressed: () {
                               // Em breve: tocar vídeo
                             },
                             tooltip: 'Ver animação (em breve)',
                           ),
                           IconButton(
-                            icon: Icon(Icons.note, color: Colors.white),
+                            icon: const Icon(Icons.note, color: Colors.white),
                             onPressed: () {
                               // Em breve: abrir anotações
                             },
                             tooltip: 'Minhas anotações (em breve)',
                           ),
                           IconButton(
-                            icon: Icon(Icons.share, color: Colors.white),
+                            icon: const Icon(Icons.share, color: Colors.white),
                             onPressed: () {
                               // Em breve: compartilhar
                             },
                             tooltip: 'Compartilhar (em breve)',
                           ),
                           IconButton(
-                            icon: Icon(Icons.help_outline, color: Colors.white),
+                            icon: const Icon(Icons.help_outline, color: Colors.white),
                             onPressed: () {
                               // Em breve: ajuda
                             },
