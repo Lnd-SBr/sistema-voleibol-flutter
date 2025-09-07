@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_tts: ^4.2.3
+  video_player: ^2.10.0
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +36,7 @@ flutter:
     - assets/4x2/
     - assets/4x2i/
     - assets/5x1/
+    - assets/videos/levantador5x1.mp4
 
 # 👇 ESTA PARTE FICA FORA DA SEÇÃO "flutter:"
 flutter_native_splash:
