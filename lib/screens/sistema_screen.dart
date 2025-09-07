@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-
+import 'package:video_player/video_player.dart';
 
 class SistemaScreen extends StatefulWidget {
   final String sistema;
@@ -16,6 +16,8 @@ class SistemaScreenState extends State<SistemaScreen> {
   final FlutterTts flutterTts = FlutterTts();
 
   late String jogadorSelecionado;
+  late VideoPlayerController _videoController;
+  bool _isVideoVisible = false; // controlar se o player está visível
 
   @override
   void initState() {
@@ -36,12 +38,27 @@ class SistemaScreenState extends State<SistemaScreen> {
         jogadorSelecionado = 'LEVANTADOR1';
       default:
         jogadorSelecionado = 'JOGADOR1'; // ou outro valor padrão
+        @override
+        void dispose() {
+          flutterTts.stop();
+          if (widget.sistema == '5x1') {
+            _videoController.dispose();
+          }
+          super.dispose();
+        }
     }
 
 
     // Configurações do flutterTts
     flutterTts.setLanguage('pt-BR');
     flutterTts.setSpeechRate(0.6);
+    // Video player
+    if (widget.sistema == '5x1') {
+      _videoController = VideoPlayerController.asset('assets/videos/levantador5x1.mp4')
+        ..initialize().then((_) {
+          setState(() {}); // rebuild para mostrar vídeo
+        });
+    }
   }
 
 
@@ -413,6 +430,14 @@ class SistemaScreenState extends State<SistemaScreen> {
                       height: 230,
                       fit: BoxFit.contain,
                     ),
+                    if (_isVideoVisible && _videoController.value.isInitialized)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: AspectRatio(
+                          aspectRatio: _videoController.value.aspectRatio,
+                          child: VideoPlayer(_videoController),
+                        ),
+                      ),
 
                     // Botões de rotação
                     const SizedBox(height: 12),
@@ -473,10 +498,25 @@ class SistemaScreenState extends State<SistemaScreen> {
                           IconButton(
                             icon: const Icon(Icons.play_circle_fill, color: Colors.white),
                             onPressed: () {
-                              // Em breve: tocar vídeo
+                              if (widget.sistema == '5x1') {
+                                setState(() {
+                                  _isVideoVisible = !_isVideoVisible;
+                                  if (_isVideoVisible) {
+                                    _videoController.play();
+                                  } else {
+                                    _videoController.pause();
+                                  }
+                                });
+                              } else {
+                                // opcional: mostrar mensagem que ainda não tem vídeo para outros sistemas
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Vídeo disponível apenas para o sistema 5x1')),
+                                );
+                              }
                             },
                             tooltip: 'Ver animação (em breve)',
                           ),
+
                           IconButton(
                             icon: const Icon(Icons.note, color: Colors.white),
                             onPressed: () {
