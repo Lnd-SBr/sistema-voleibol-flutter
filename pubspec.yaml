@@ -37,6 +37,7 @@ flutter:
     - assets/4x2i/
     - assets/5x1/
     - assets/videos/levantador5x1.mp4
+    - assets/videos/oposto5x1.mp4
 
 # 👇 ESTA PARTE FICA FORA DA SEÇÃO "flutter:"
 flutter_native_splash:

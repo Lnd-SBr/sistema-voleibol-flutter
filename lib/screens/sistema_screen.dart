@@ -36,22 +36,15 @@ class SistemaScreenState extends State<SistemaScreen> {
         break;
       case '4x2 Invertido':
         jogadorSelecionado = 'LEVANTADOR1';
+        break;
       default:
         jogadorSelecionado = 'JOGADOR1'; // ou outro valor padrão
-        @override
-        void dispose() {
-          flutterTts.stop();
-          if (widget.sistema == '5x1') {
-            _videoController.dispose();
-          }
-          super.dispose();
-        }
     }
-
 
     // Configurações do flutterTts
     flutterTts.setLanguage('pt-BR');
     flutterTts.setSpeechRate(0.6);
+
     // Video player
     if (widget.sistema == '5x1') {
       _videoController = VideoPlayerController.asset('assets/videos/levantador5x1.mp4')
@@ -60,6 +53,18 @@ class SistemaScreenState extends State<SistemaScreen> {
         });
     }
   }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+
+    if (widget.sistema == '5x1') {
+      _videoController.dispose();
+    }
+
+    super.dispose();
+  }
+
 
 
 
