@@ -18,6 +18,42 @@ class SistemaScreenState extends State<SistemaScreen> {
   late String jogadorSelecionado;
   late VideoPlayerController _videoController;
   bool _isVideoVisible = false; // controlar se o player está visível
+  String? _currentVideoPath; // guarda o vídeo atualmente carregado (evita reload desnecessário)
+
+  /// Retorna o caminho do vídeo com base no sistema e no jogador selecionado
+  String? _getVideoPath() {
+    if (widget.sistema == '5x1') {
+      if (jogadorSelecionado == 'LEVANTADOR') {
+        return 'assets/videos/levantador5x1.mp4';
+      } else if (jogadorSelecionado == 'OPOSTO') {
+        return 'assets/videos/oposto5x1.mp4';
+      }
+    }
+    return null; // caso não tenha vídeo para esse jogador/sistema
+  }
+
+  /// Inicializa e toca o vídeo correto
+  Future<void> _playVideo() async {
+    final newPath = _getVideoPath();
+    if (newPath == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vídeo não disponível para esta seleção')),
+      );
+      return;
+    }
+
+    // só recria o controller se o vídeo mudou
+    if (_currentVideoPath != newPath) {
+      _currentVideoPath = newPath;
+      _videoController = VideoPlayerController.asset(newPath);
+      await _videoController.initialize();
+    }
+
+    setState(() {
+      _isVideoVisible = true;
+      _videoController.play();
+    });
+  }
 
   @override
   void initState() {
@@ -501,27 +537,12 @@ class SistemaScreenState extends State<SistemaScreen> {
                             tooltip: 'Ouvir explicação',
                           ),
                           IconButton(
-                            icon: const Icon(Icons.play_circle_fill, color: Colors.white),
-                            onPressed: () {
-                              if (widget.sistema == '5x1') {
-                                setState(() {
-                                  _isVideoVisible = !_isVideoVisible;
-                                  if (_isVideoVisible) {
-                                    _videoController.play();
-                                  } else {
-                                    _videoController.pause();
-                                  }
-                                });
-                              } else {
-                                // opcional: mostrar mensagem que ainda não tem vídeo para outros sistemas
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Vídeo disponível apenas para o sistema 5x1')),
-                                );
-                              }
-                            },
-                            tooltip: 'Ver animação (em breve)',
-                          ),
-
+                              icon: const Icon(Icons.play_circle_fill, color: Colors.white),
+                              onPressed: () async {
+                                await _playVideo(); // 👈 Agora usamos o método que criamos para tocar o vídeo certo
+                              },
+                            ),
+                           
                           IconButton(
                             icon: const Icon(Icons.note, color: Colors.white),
                             onPressed: () {
