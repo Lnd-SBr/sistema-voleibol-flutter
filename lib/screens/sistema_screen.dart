@@ -20,17 +20,29 @@ class SistemaScreenState extends State<SistemaScreen> {
   bool _isVideoVisible = false; // controlar se o player está visível
   String? _currentVideoPath; // guarda o vídeo atualmente carregado (evita reload desnecessário)
 
-  /// Retorna o caminho do vídeo com base no sistema e no jogador selecionado
+  /// Resonator o caminho do vídeo com base no sistema e no jogador selecionado
   String? _getVideoPath() {
     if (widget.sistema == '5x1') {
       if (jogadorSelecionado == 'LEVANTADOR') {
         return 'assets/videos/levantador5x1.mp4';
       } else if (jogadorSelecionado == 'OPOSTO') {
         return 'assets/videos/oposto5x1.mp4';
+      } else if (jogadorSelecionado == 'LIBERO') {
+        return 'assets/videos/libero5x1.mp4';
+      } else if (jogadorSelecionado == 'CENTRAL1') {
+        return 'assets/videos/central15x1.mp4';
+      } else if (jogadorSelecionado == 'CENTRAL2') {
+        return 'assets/videos/central25x1.mp4';
+      } else if (jogadorSelecionado == 'PONTEIRO1') {
+        return 'assets/videos/ponteiro15x1.mp4';
+      } else if (jogadorSelecionado == 'PONTEIRO2') {
+        return 'assets/videos/ponteiro25x1.mp4';
       }
     }
     return null; // caso não tenha vídeo para esse jogador/sistema
   }
+
+
 
   /// Inicializa e toca o vídeo correto
   Future<void> _playVideo() async {
