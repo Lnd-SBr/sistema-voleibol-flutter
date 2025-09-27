@@ -43,29 +43,27 @@ class SistemaScreenState extends State<SistemaScreen> {
   }
 
 
-
   /// Inicializa e toca o vídeo correto
   Future<void> _playVideo() async {
-    final newPath = _getVideoPath();
-    if (newPath == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Vídeo não disponível para esta seleção')),
-      );
-      return;
+    final path = _getVideoPath();
+    if (path == null) return;
+
+    // Se já estiver reproduzindo outro vídeo, fecha
+    if (_isVideoVisible && _currentVideoPath != path) {
+      _videoController.pause();
+      _videoController.dispose();
     }
 
-    // só recria o controller se o vídeo mudou
-    if (_currentVideoPath != newPath) {
-      _currentVideoPath = newPath;
-      _videoController = VideoPlayerController.asset(newPath);
-      await _videoController.initialize();
-    }
+    _videoController = VideoPlayerController.asset(path);
+    await _videoController.initialize();
 
     setState(() {
+      _currentVideoPath = path;
       _isVideoVisible = true;
       _videoController.play();
     });
   }
+
 
   @override
   void initState() {
@@ -435,10 +433,24 @@ class SistemaScreenState extends State<SistemaScreen> {
             child: DropdownButton<String>(
               value: jogadorSelecionado,
               onChanged: (String? novoValor) {
+                if (novoValor == null) return;
+
                 setState(() {
-                  jogadorSelecionado = novoValor!;
+                  jogadorSelecionado = novoValor;
+
+                  // Fecha o vídeo atual se estiver visível
+                  if (_isVideoVisible) {
+                    _isVideoVisible = false;
+                    _videoController.pause();
+                    _videoController.dispose();
+                    _currentVideoPath = null;
+                  }
                 });
               },
+
+
+
+
               items: (widget.sistema == '5x1'
                   ? jogadores5x1
                   : (widget.sistema == '4x2'
@@ -554,7 +566,7 @@ class SistemaScreenState extends State<SistemaScreen> {
                                 await _playVideo(); // 👈 Agora usamos o método que criamos para tocar o vídeo certo
                               },
                             ),
-                           
+
                           IconButton(
                             icon: const Icon(Icons.note, color: Colors.white),
                             onPressed: () {
